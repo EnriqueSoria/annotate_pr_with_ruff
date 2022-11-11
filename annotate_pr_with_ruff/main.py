@@ -46,10 +46,12 @@ def main():
             commit_id=commit_id,
             body=error.message
         )
-        r = requests.post(comment_url, data=json.dumps(data), headers={
+        response = requests.post(comment_url, data=json.dumps(data), headers={
             "authorization": f"Bearer {os.getenv('GITHUB_TOKEN')}",
             "Accept": "application/vnd.github.v3.raw+json",
         })
+        print(f">>> post({comment_url}, body={data})")
+        print(response.status_code, response.json())
 
 
 if __name__ == "__main__":
