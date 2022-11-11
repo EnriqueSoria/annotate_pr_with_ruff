@@ -2,6 +2,8 @@
 import json
 import os
 
+import requests
+
 from .changeutils import get_changed_files
 from .github_utils import get_diff
 from .github_utils import submit_review
@@ -33,7 +35,21 @@ def main():
         if ruff_error.line_number in changed_files.get(ruff_error.file, {})
     ]
 
-    submit_review(owner=owner, repo=repo, pr_number=pr_number, errors=ruff_errors)
+    comment_url = event_data["pull_request"]["review_comments_url"]
+    commit_id = event_data["pull_request"]["head"]["sha"]
+
+    for error in ruff_errors:
+        data = dict(
+            path=error.file,
+            line=error.line_number,
+            side="RIGHT",
+            commit_id=commit_id,
+            body=error.message
+        )
+        r = requests.post(comment_url, data=json.dumps(data), headers={
+            "authorization": f"Bearer {os.getenv('GITHUB_TOKEN')}",
+            "Accept": "application/vnd.github.v3.raw+json",
+        })
 
 
 if __name__ == "__main__":
