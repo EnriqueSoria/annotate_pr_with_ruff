@@ -1,0 +1,7 @@
+name: 'PR annotator with ruff'
+description: 'Annotate pull requests with ruff linter'
+author: 'Enrique Soria'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'

@@ -1,0 +1,1 @@
+python3 -m annotate_pr_with_ruff
