@@ -10,4 +10,4 @@ RUN apk add github-cli
 
 COPY . .
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["python", "/app/entrypoint.py"]
