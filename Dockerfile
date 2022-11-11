@@ -10,4 +10,4 @@ RUN apk add github-cli
 
 COPY . .
 
-ENTRYPOINT [ "python3", "-m" , "annotate_pr_with_ruff"]
+ENTRYPOINT ["/entrypoint.sh"]

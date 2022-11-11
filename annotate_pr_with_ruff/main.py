@@ -1,4 +1,5 @@
 #!/bin/python
+import json
 import os
 
 from .changeutils import get_changed_files
@@ -8,9 +9,11 @@ from .ruff import ruff
 
 
 def main():
-    owner = os.getenv("REPO_OWNER")
-    repo = os.getenv("REPO_NAME")
-    pr_number = int(os.getenv("PULL_REQUEST_NUMBER"))
+    with open(os.environ["GITHUB_EVENT_PATH"]) as f:
+        event_data = json.load(f)
+
+    owner, repo = event_data["pull_request"]["head"]["repo"]["full_name"].split("/")
+    pr_number = event_data["pull_request"]["number"]
 
     diff = get_diff(owner=owner, repo=repo, pr_number=pr_number)
 
