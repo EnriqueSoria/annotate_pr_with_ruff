@@ -1,6 +1,7 @@
 import re
-from typing import Dict, Set, List, NamedTuple
-
+from typing import Dict
+from typing import List
+from typing import Set
 
 HUNK_MATCH = re.compile("^@@ -\d+,\d+ \+(\d+),\d+ @@")
 
