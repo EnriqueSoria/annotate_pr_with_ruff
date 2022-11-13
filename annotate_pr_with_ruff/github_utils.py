@@ -6,6 +6,10 @@ import requests
 from .ruff import RuffError
 from .ruff import run_cli
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 def get_diff(owner: str, repo: str, pr_number: int) -> str:
     return run_cli(
@@ -33,7 +37,13 @@ def get_last_commit(owner: str, repo: str, pr_number: int) -> str:
     ).strip()
 
 
-def submit_review(owner: str, repo: str, pr_number: int, review_message:str, errors: Sequence[RuffError]):
+def submit_review(
+    owner: str,
+    repo: str,
+    pr_number: int,
+    review_message: str,
+    errors: Sequence[RuffError],
+):
     url = f"https://api.github.com/repos/{owner}/{repo}/pulls/{pr_number}/reviews"
 
     body = dict(
@@ -58,5 +68,5 @@ def submit_review(owner: str, repo: str, pr_number: int, review_message:str, err
         headers=headers,
         json=body,
     )
-    print(f">>> post({url}, headers={headers}, body={body})")
-    print(response.status_code, response.json())
+    logger.debug(f">>> post({url}, headers={headers}, body={body})")
+    logger.debug(response.status_code, response.json())
