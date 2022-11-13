@@ -30,13 +30,14 @@ def main():
     ]
 
     # Submit review
-    submit_review(
-        owner=owner,
-        repo=repo,
-        pr_number=pr_number,
-        review_message="Thanks for contributing! Some errors have been found by ruff linter, please check them.",
-        errors=ruff_errors,
-    )
+    if ruff_errors:
+        submit_review(
+            owner=owner,
+            repo=repo,
+            pr_number=pr_number,
+            review_message="Thanks for contributing! Some errors have been found by ruff linter, please check them.",
+            errors=ruff_errors,
+        )
 
 
 if __name__ == "__main__":
