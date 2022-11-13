@@ -1,3 +1,5 @@
+# Code taken from https://github.com/typilus/typilus-action, which is MIT Licensed
+
 import re
 from typing import Dict
 from typing import List
@@ -58,6 +60,8 @@ def get_changed_files(diff: str, suffix=".py") -> Dict[str, Set[int]]:
 
         if target_filepath.endswith(suffix):
             assert target_filepath not in changed_files
-            changed_files[target_filepath] = get_line_ranges_of_interest(remaining_lines)
+            changed_files[target_filepath] = get_line_ranges_of_interest(
+                remaining_lines
+            )
 
     return changed_files
