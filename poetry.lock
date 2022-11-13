@@ -45,7 +45,7 @@ use_chardet_on_py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
 name = "ruff"
-version = "0.0.108"
+version = "0.0.114"
 description = "An extremely fast Python linter, written in Rust."
 category = "main"
 optional = false
@@ -67,7 +67,7 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "7bc9f92f173e7175730bd5a2a23291d085ec5004d076664aabccf1dcb240e3f1"
+content-hash = "33d567e0d087d2e57c0833381c44488e8c6913669a87cd2b014d6eb09a8c4a77"
 
 [metadata.files]
 certifi = []
