@@ -33,12 +33,12 @@ def get_last_commit(owner: str, repo: str, pr_number: int) -> str:
     ).strip()
 
 
-def submit_review(owner: str, repo: str, pr_number: int, errors: Sequence[RuffError]):
+def submit_review(owner: str, repo: str, pr_number: int, review_message:str, errors: Sequence[RuffError]):
     url = f"https://api.github.com/repos/{owner}/{repo}/pulls/{pr_number}/reviews"
 
     body = dict(
         commit_id=get_last_commit(owner, repo, pr_number),
-        body="This is close to perfect! Please address the suggested inline change.",
+        body=review_message,
         event="COMMENT",
         comments=[
             {

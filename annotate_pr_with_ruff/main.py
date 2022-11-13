@@ -29,7 +29,14 @@ def main():
         if ruff_error.line_number in changed_files.get(f"/{ruff_error.file}", {})
     ]
 
-    submit_review(owner=owner, repo=repo, pr_number=pr_number, errors=ruff_errors)
+    # Submit review
+    submit_review(
+        owner=owner,
+        repo=repo,
+        pr_number=pr_number,
+        review_message="Thanks for contributing! Some errors have been found by ruff linter, please check them.",
+        errors=ruff_errors,
+    )
 
 
 if __name__ == "__main__":
