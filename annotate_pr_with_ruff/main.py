@@ -1,12 +1,13 @@
-#!/bin/python
 import json
 import os
-import sys
+
+print(f"{os.environ['GITHUB_EVENT_PATH']=}")
 
 from changeutils import get_changed_files
-from github_utils import get_diff, submit_review
+from github_utils import get_diff
 from ruff_utils import ruff
 
+print("imports finished")
 
 def main():
     with open(os.environ["GITHUB_EVENT_PATH"]) as f:
@@ -36,10 +37,6 @@ def main():
         print(
             f"::error file={ruff_error.file},line={ruff_error.line_number}::{ruff_error.message}"
         )
-
-    if ruff_errors:
-        ERROR_CODE = 1
-        sys.exit(ERROR_CODE)
 
 
 if __name__ == "__main__":

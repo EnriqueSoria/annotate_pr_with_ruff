@@ -9,6 +9,7 @@ runs:
   steps:
     - run: |
         output=$(python ${{ github.action_path }}/annotate_pr_with_ruff/main.py)
+        echo $output
         output="${output//'%'/'%25'}"
         output="${output//$'\n'/'%0A'}"
         output="${output//$'\r'/'%0D'}"
