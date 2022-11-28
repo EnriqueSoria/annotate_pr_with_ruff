@@ -29,6 +29,8 @@ def main():
         if ruff_error.line_number in changed_files.get(f"/{ruff_error.file}", {})
     ]
 
+    print(f"::set-output name=num_errors::{len(ruff_errors)}")
+
     # Submit review
     for ruff_error in ruff_errors:
         print(
