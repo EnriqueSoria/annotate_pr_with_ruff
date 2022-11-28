@@ -13,7 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so that annotate_pr_with_ruff can access it.
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10' 
+      - name: Install ruff from PyPI
+        uses: install-pinned/ruff@vX.X.X # <-- Choose a release version
       - name: PR annotator with ruff
         uses: EnriqueSoria/annotate_pr_with_ruff@vX.X.X  # <-- Choose a release version
         env:
