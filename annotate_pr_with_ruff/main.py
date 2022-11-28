@@ -3,10 +3,9 @@ import json
 import os
 import sys
 
-from .changeutils import get_changed_files
-from .github_utils import get_diff
-from .github_utils import submit_review
-from .ruff import ruff
+from changeutils import get_changed_files
+from github_utils import get_diff, submit_review
+from ruff_utils import ruff
 
 
 def main():
@@ -32,7 +31,9 @@ def main():
 
     # Submit review
     for ruff_error in ruff_errors:
-        print(f"::error file={ruff_error.file},line={ruff_error.line_number}::{ruff_error.message}")
+        print(
+            f"::error file={ruff_error.file},line={ruff_error.line_number}::{ruff_error.message}"
+        )
 
     if ruff_errors:
         ERROR_CODE = 1

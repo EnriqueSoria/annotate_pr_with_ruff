@@ -1,12 +1,9 @@
+import logging
 import os
 from typing import Sequence
 
 import requests
-
-from .ruff import RuffError
-from .ruff import run_cli
-
-import logging
+from ruff_utils import RuffError, run_cli
 
 logger = logging.getLogger(__name__)
 

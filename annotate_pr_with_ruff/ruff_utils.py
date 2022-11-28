@@ -1,11 +1,10 @@
 from __future__ import annotations
 
+import logging
 import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Tuple
-
-import logging
 
 logger = logging.getLogger(__name__)
 

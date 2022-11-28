@@ -1,9 +1,7 @@
 # Code taken from https://github.com/typilus/typilus-action, which is MIT Licensed
 
 import re
-from typing import Dict
-from typing import List
-from typing import Set
+from typing import Dict, List, Set
 
 HUNK_MATCH = re.compile("^@@ -\d+,\d+ \+(\d+),\d+ @@")
 
