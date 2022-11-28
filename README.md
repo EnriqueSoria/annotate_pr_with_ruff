@@ -45,7 +45,7 @@ For the installation of `ruff` there are two options possible:
 ## Images
 Here's an screenshot of what it can do:
 
-![imagen](https://user-images.githubusercontent.com/7394684/201521001-9baafdb0-f4c0-4860-b5ad-1a97ec9abb7e.png)
+![imagen](https://user-images.githubusercontent.com/7394684/204401939-f50114a0-2815-4981-980a-e91e71799d26.png)
 
 
 ## Credits
