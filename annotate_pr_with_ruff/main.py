@@ -30,14 +30,8 @@ def main():
     ]
 
     # Submit review
-    if ruff_errors:
-        submit_review(
-            owner=owner,
-            repo=repo,
-            pr_number=pr_number,
-            review_message="Thanks for contributing! Some errors have been found by ruff linter, please check them.",
-            errors=ruff_errors,
-        )
+    for ruff_error in ruff_errors:
+        print(f"::error file={ruff_error.file},line={ruff_error.line_number}::{ruff_error.message}")
 
 
 if __name__ == "__main__":
