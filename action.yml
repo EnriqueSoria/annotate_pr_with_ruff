@@ -1,13 +1,11 @@
 name: 'PR annotator with ruff'
 description: 'Annotate pull requests with ruff linter'
 author: 'Enrique Soria'
-
-runs-on: ubuntu-latest
-runs:
-  steps:
-    - run: python -m annotate_pr_with_ruff
-      shell: bash
-
 branding:
   icon: git-pull-request
   color: blue
+runs:
+  using: "composite"
+  steps:
+    - run: python -m annotate_pr_with_ruff
+      shell: bash
