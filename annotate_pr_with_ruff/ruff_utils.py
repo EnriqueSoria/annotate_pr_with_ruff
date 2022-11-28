@@ -1,11 +1,9 @@
 from __future__ import annotations
 
+import logging
 import subprocess
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Tuple
-
-import logging
 
 logger = logging.getLogger(__name__)
 
@@ -33,14 +31,16 @@ def run_cli(*command_args) -> str:
     process = subprocess.Popen(command_args, stdout=subprocess.PIPE)
     stdout, _ = process.communicate()
     output = stdout.decode()
-    logger.debug(f""">>> {' '.join(command_args)}""")
+    print(f""">>> {' '.join(command_args)}""")
     logger.debug(output)
     return output
 
 
-def ruff(*files: Tuple[str, ...]):
+def ruff(*files: str):
     if not files:
         files = tuple(str(x) for x in Path(".").iterdir() if x.is_dir())
+
+    print(f"{files=}")
     output = run_cli("ruff", *files)
     return [
         RuffError.from_message_error(error)

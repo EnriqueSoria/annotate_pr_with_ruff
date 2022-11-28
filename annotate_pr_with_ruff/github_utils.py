@@ -1,12 +1,6 @@
-import os
-from typing import Sequence
-
-import requests
-
-from .ruff import RuffError
-from .ruff import run_cli
-
 import logging
+
+from ruff_utils import run_cli
 
 logger = logging.getLogger(__name__)
 
@@ -35,38 +29,3 @@ def get_last_commit(owner: str, repo: str, pr_number: int) -> str:
         "--jq",
         ".commits[].oid",
     ).strip()
-
-
-def submit_review(
-    owner: str,
-    repo: str,
-    pr_number: int,
-    review_message: str,
-    errors: Sequence[RuffError],
-):
-    url = f"https://api.github.com/repos/{owner}/{repo}/pulls/{pr_number}/reviews"
-
-    body = dict(
-        commit_id=get_last_commit(owner, repo, pr_number),
-        body=review_message,
-        event="COMMENT",
-        comments=[
-            {
-                "path": error.file,
-                "position": error.line_number,
-                "body": error.message,
-            }
-            for error in errors
-        ],
-    )
-    headers = {
-        "Accept": "application/vnd.github+json",
-        "Authorization": f"Bearer {os.getenv('GITHUB_TOKEN')}",
-    }
-    response = requests.post(
-        url=url,
-        headers=headers,
-        json=body,
-    )
-    logger.debug(f">>> post({url}, headers={headers}, body={body})")
-    logger.debug(response.status_code, response.json())

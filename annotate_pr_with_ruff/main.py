@@ -1,11 +1,9 @@
-#!/bin/python
 import json
 import os
 
-from .changeutils import get_changed_files
-from .github_utils import get_diff
-from .github_utils import submit_review
-from .ruff import ruff
+from changeutils import get_changed_files
+from github_utils import get_diff
+from ruff_utils import ruff
 
 
 def main():
@@ -18,25 +16,24 @@ def main():
     # Check which files have changed
     diff = get_diff(owner=owner, repo=repo, pr_number=pr_number)
     changed_files = get_changed_files(diff)
+    print(f"{changed_files=}")
 
     # Get errors from ruff
     ruff_errors = ruff()
+    print(f"{ruff_errors=}")
 
     # Filter only errors on lines that have been changed
     ruff_errors = [
         ruff_error
         for ruff_error in ruff_errors
-        if ruff_error.line_number in changed_files.get(f"/{ruff_error.file}", {})
+        if f"/{ruff_error.file}" in changed_files
     ]
+    print(f"::set-output name=num_errors::{len(ruff_errors)}")
 
     # Submit review
-    if ruff_errors:
-        submit_review(
-            owner=owner,
-            repo=repo,
-            pr_number=pr_number,
-            review_message="Thanks for contributing! Some errors have been found by ruff linter, please check them.",
-            errors=ruff_errors,
+    for ruff_error in ruff_errors:
+        print(
+            f"::error file={ruff_error.file},line={ruff_error.line_number}::{ruff_error.message}"
         )
 
 

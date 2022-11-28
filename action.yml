@@ -1,11 +1,20 @@
 name: 'PR annotator with ruff'
 description: 'Annotate pull requests with ruff linter'
 author: 'Enrique Soria'
-
-runs:
-  using: 'docker'
-  image: 'Dockerfile'
-
 branding:
   icon: git-pull-request
   color: blue
+outputs:
+  stdout:
+    description: "The output of the tool"
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        stdout=$(python ${{ github.action_path }}/annotate_pr_with_ruff/main.py)
+        echo "$stdout"
+        stdout="${stdout//'%'/'%25'}"
+        stdout="${stdout//$'\n'/'%0A'}"
+        stdout="${stdout//$'\r'/'%0D'}"
+        echo "::set-output name=stdout::$stdout"
+      shell: bash
