@@ -7,5 +7,5 @@ branding:
 runs:
   using: "composite"
   steps:
-    - run: python annotate_pr_with_ruff/main.py
+    - run: python ${{ github.action_path }}/annotate_pr_with_ruff/main.py
       shell: bash
