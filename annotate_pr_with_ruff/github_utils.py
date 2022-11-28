@@ -13,6 +13,8 @@ def get_diff(owner: str, repo: str, pr_number: int) -> str:
         str(pr_number),
         "--repo",
         f"{owner}/{repo}",
+        "--color",
+        "never"
     ).strip()
 
 
