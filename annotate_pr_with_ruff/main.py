@@ -1,5 +1,6 @@
 import json
 import os
+import sys
 
 from changeutils import get_changed_files
 from github_utils import get_diff
@@ -35,6 +36,9 @@ def main():
         print(
             f"::error file={ruff_error.file},line={ruff_error.line_number}::{ruff_error.message}"
         )
+
+    if ruff_errors:
+        sys.exit(1)
 
 
 if __name__ == "__main__":
