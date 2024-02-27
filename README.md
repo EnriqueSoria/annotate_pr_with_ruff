@@ -1,3 +1,7 @@
+> [!WARNING]
+> Archived because now ruff does this by default. Check its docs: https://docs.astral.sh/ruff/integrations/#github-actions
+
+
 # Annotate pull requests with ruff
 
 It runs `ruff` against pull requests changed lines, and creates a review comment with them.
